@@ -1,21 +1,12 @@
 package pl.ludwikowski.shop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ludwikowski.shop.model.Product;
 import pl.ludwikowski.shop.service.ProductService;
 
@@ -31,12 +22,14 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(summary = "Get all products")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @PostMapping
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("ADMIN")
     @Operation(summary = "Add new product")
     public Product addProduct(@RequestBody Product product) {
@@ -44,6 +37,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("ADMIN")
     @Operation(summary = "Delete product")
     public void deleteProduct(@PathVariable Long id) {
@@ -51,6 +45,7 @@ public class ProductController {
     }
 
     @PutMapping("addQuantity/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("ADMIN")
     @Operation(summary = "Add product quantity")
     public Product addProductQuantity(@PathVariable Long id, @RequestParam("quantityToAdd") Double quantityToAdd) {
@@ -58,6 +53,7 @@ public class ProductController {
     }
 
     @PutMapping("changePrice/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("ADMIN")
     @Operation(summary = "Change product price")
     public Product changeProductPrice(@PathVariable Long id, @RequestParam("newPrice") BigDecimal newPrice) {

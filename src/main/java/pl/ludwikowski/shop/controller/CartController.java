@@ -1,6 +1,7 @@
 package pl.ludwikowski.shop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -37,6 +38,7 @@ public class CartController {
     ShopUserRepository shopUserRepository;
 
     @PostMapping
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("USER")
     @Operation(summary = "Create or get cart")
     public Cart createOrGetCart() {
@@ -47,6 +49,7 @@ public class CartController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("USER")
     @Operation(summary = "Add product to cart")
     public Cart addProductToCart(@PathVariable Long id, @RequestParam("productId") Long productId, @RequestParam("quantity") Double quantity) {
@@ -54,6 +57,7 @@ public class CartController {
     }
 
     @PutMapping("/{id}/{status}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured({"USER", "ADMIN"})
     @Operation(summary = "Change cart status")
     public Cart changeCartStatus(@PathVariable("id") Long id, @PathVariable("status") CartStatus status) {
@@ -65,6 +69,7 @@ public class CartController {
     }
 
     @DeleteMapping("deleteCartItem/{cartItemId}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured("USER")
     @Operation(summary = "Delete product from cart")
     public void removeProductFromCart(@PathVariable Long cartItemId) {
@@ -72,6 +77,7 @@ public class CartController {
     }
 
     @GetMapping("/{status}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Secured({"USER", "ADMIN"})
     @Operation(summary = "Get all orders by status")
     public List<Cart> getAllOrderByStatus(@PathVariable CartStatus status) {

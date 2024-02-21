@@ -1,6 +1,7 @@
 package pl.ludwikowski.shop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,6 +33,7 @@ public class ShopUserController {
     }
 
     @GetMapping()
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(summary = "Ger own user email from Security Context")
     public String getUsername() {
         SecurityContext securityContext = SecurityContextHolder.getContext();

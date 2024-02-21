@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface ShopUserRepository extends JpaRepository<ShopUser, Long> {
 
     Optional<ShopUser> findByEmail(String email);
-
 }
