@@ -1,4 +1,4 @@
-The application is about making shopping and managing your store. What can you do:
+The application is about doing shopping and managing your store. What can you do:
 
 *as a user: -get all products -create or get cart -add product to cart -delete product from cart -change cart status -get all orders by status -get your own email from Security Context
 
